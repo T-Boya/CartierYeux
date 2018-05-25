@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'Workspace.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram_clone',
+        'NAME': 'cartieryeux',
         'USER': 'tinashe_osewe',
         'PASSWORD':'theosewes',
     }
