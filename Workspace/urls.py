@@ -23,4 +23,5 @@ from lesyeux import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('lesyeux.urls')),
- + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)]
+] + staticfiles_urlpatterns() + static(settings.MEDIA_URL,
+ document_root=settings.MEDIA_ROOT)
