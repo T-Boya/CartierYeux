@@ -152,3 +152,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "live-static-files", "static-root")
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 't.osewe1@gmail.com'
+EMAIL_HOST_PASSWORD = '--SPeyeDAmun--'
+EMAIL_PORT = 587

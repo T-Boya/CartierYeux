@@ -1,0 +1,37 @@
+Requirements
+(y) = done
+(n) = not done
+
+Users
+    login must have email confirmation
+
+User Profile
+    Must contain name, general location and neighborhood
+    Class must contain:
+        name
+        id
+        email #why tho?
+        neighborhood foreign key
+
+Emergency services contact information
+    Ambulance and police department contact information, per neighborhood 
+
+Neighborhood pages
+    Must be deletable
+    Must be searchable
+    Details must be updatable
+
+    Class must contain:
+        name
+        location
+        population
+        admin foreign key
+
+Neighborhood businesses
+
+Neighborhood posts
+    posts can be pictures or text
+
+Business Search
+
+Admin Dashboard
