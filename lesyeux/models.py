@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Neighborhood(models.Model):
@@ -11,8 +12,11 @@ class Neighborhood(models.Model):
     police = models.CharField(max_length=12, default='911')
     ambulance = models.CharField(max_length=12, default='911')
 
-# class User(models.Model):
-#     words = models.CharField(max_length=30)
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    image = models.ImageField(upload_to='uploaded_images', blank=True)
+    idnumber = models.CharField(max_length=10,)
+    Neighborhood = models.ForeignKey(Neighborhood, blank = True)
 
 class Business(models.Model):
     name = models.CharField(max_length=30, default='Unknown')
