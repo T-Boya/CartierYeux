@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        {% for neighborhood in neighborhoods%}
+        <img src="{{ neighborhood.image.url }}" style="height: 100px;">
+        <p>Name: {{ neighborhood.name }}</p>
+        <p>Location: {{ neighborhood.location }}</p>
+        <p>Population: {{ neighborhood.population }}</p>
+        <a href="{{ neighborhood.get_url }}"><p>View More...</p></a>
+        {% endfor %}
+    </body>
+</html>

@@ -79,7 +79,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect('view')
+                return redirect('nieghborhoods')
 
             else:
                 return HttpResponse("Your account is disabled.")
@@ -91,10 +91,6 @@ def user_login(request):
     else:
         # return HttpResponse('gegeegegeg')
         return render(request, 'login.html')
-    
-@login_required
-def neighborhoods(request):
-    return HttpResponse("You are logged in")
 
 @login_required
 def create_neighborhood(request):
@@ -103,8 +99,18 @@ def create_neighborhood(request):
         form = NeighborhoodForm(request.POST, request.FILES)
         if form.is_valid():
             neighborhood = Neighborhood(image = request.FILES['image'])
-            neighborhood = neighborhood.save()
-            return redirect('view')
+            neighborhood = form.save(commit=True)
+            return redirect('neighborhoods')
     else:
         print(form.errors)
     return render(request, 'new_neighborhood.html', context = {'form':form,})
+
+@login_required
+def neighborhoods(request):
+    neighborhoods = Neighborhood.objects.all()
+    return render(request, 'view_neighborhoods.html', context = {'neighborhoods' : neighborhoods,})
+
+@login_required
+def show_neighborhood(request, slug):
+    neighborhood = get_object_or_404(Neighborhood, slug=Neighborhood_slug)
+    return render(request, 'Instagram/details.html', context = {'nieghborhood' : neighborhood,})

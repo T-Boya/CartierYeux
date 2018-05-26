@@ -3,7 +3,7 @@ Requirements
 (n) = not done
 
 Users
-    login must have email confirmation
+    login must have email confirmation (Y)
 
 User Profile
     Must contain name, general location and neighborhood
@@ -34,4 +34,4 @@ Neighborhood posts
 
 Business Search
 
-Admin Dashboard
+Admin Dashboard (Y)
