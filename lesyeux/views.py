@@ -1,14 +1,18 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from lesyeux.forms import SignupForm, UserProfileForm
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from lesyeux.forms import SignupForm, UserProfileForm, NeighborhoodForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from lesyeux.tokens import account_activation_token
 from django.contrib.auth.models import User
+from lesyeux.models import Neighborhood, UserProfile, Business, Post
 from django.core.mail import EmailMessage
+from django.views.decorators.http import require_POST
 
 def index(request):
     return HttpResponse('Home sweet home')
@@ -43,7 +47,7 @@ def signup(request):
                 registered = True
                 email.send()
             else:
-                profile_form = UserProfileForm()
+                email.send()
             return HttpResponse('Please confirm your email address to complete the registration')
 
     else:
@@ -66,3 +70,41 @@ def activate(request, uidb64, token):
     else:
         return HttpResponse('Activation link is invalid!')
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect('view')
+
+            else:
+                return HttpResponse("Your account is disabled.")
+
+        else:
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+
+    else:
+        # return HttpResponse('gegeegegeg')
+        return render(request, 'login.html')
+    
+@login_required
+def neighborhoods(request):
+    return HttpResponse("You are logged in")
+
+@login_required
+def create_neighborhood(request):
+    form = NeighborhoodForm()
+    if request.method == 'POST':
+        form = NeighborhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            neighborhood = Neighborhood(image = request.FILES['image'])
+            neighborhood = neighborhood.save()
+            return redirect('view')
+    else:
+        print(form.errors)
+    return render(request, 'new_neighborhood.html', context = {'form':form,})

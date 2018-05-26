@@ -3,18 +3,19 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Neighborhood(models.Model):
-    name = models.CharField(max_length=30, default='Unknown')
-    location = models.CharField(max_length=100, default='Somewhere in Nairobi')
-    population = models.CharField(max_length=128, default='Unknown')
+    image = models.ImageField(upload_to='neighborhood_photos', null=True)
+    name = models.CharField(max_length=30, default='Unknown', blank=True)
+    location = models.CharField(max_length=100, default='Somewhere in Nairobi', blank=True)
+    population = models.CharField(max_length=128, default='Unknown', blank=True)
     # admin  = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     # businesses = models.ForeignKey(Business, on_delete=models.CASCADE, null=True, blank=True)
     # posts = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
-    police = models.CharField(max_length=12, default='911')
-    ambulance = models.CharField(max_length=12, default='911')
+    police = models.CharField(max_length=12, default='911', blank=True)
+    ambulance = models.CharField(max_length=12, default='911', blank=True)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    image = models.ImageField(upload_to='uploaded_images', blank=True)
+    image = models.ImageField(upload_to='user_dps', blank=True)
     idnumber = models.CharField(max_length=10,)
     Neighborhood = models.ForeignKey(Neighborhood, blank = True)
 
