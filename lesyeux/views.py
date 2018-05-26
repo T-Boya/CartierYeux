@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404,redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from lesyeux.forms import SignupForm, UserProfileForm, NeighborhoodForm
@@ -108,9 +108,12 @@ def create_neighborhood(request):
 @login_required
 def neighborhoods(request):
     neighborhoods = Neighborhood.objects.all()
+    # for neighborhood in neighborhoods:
+    #     redirect = neighborhood.get_url
     return render(request, 'view_neighborhoods.html', context = {'neighborhoods' : neighborhoods,})
 
 @login_required
-def show_neighborhood(request, slug):
-    neighborhood = get_object_or_404(Neighborhood, slug=Neighborhood_slug)
-    return render(request, 'Instagram/details.html', context = {'nieghborhood' : neighborhood,})
+def show_neighborhood(request, id=None):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    return render(request,'show_neighborhood.html', context = {'neighborhood' : neighborhood,})
+    # return render(request, 'Instagram/details.html', context = {'nieghborhood' : neighborhood,})

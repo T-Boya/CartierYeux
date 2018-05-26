@@ -8,13 +8,13 @@ Users
 User Profile
     Must contain name, general location and neighborhood
     Class must contain:
-        name
-        id
-        email #why tho?
-        neighborhood foreign key
+        name (Y)
+        id(Y)
+        email #why tho?(Y)
+        neighborhood foreign key(Y)
 
 Emergency services contact information
-    Ambulance and police department contact information, per neighborhood 
+    Ambulance and police department contact information, per neighborhood  (Y)
 
 Neighborhood pages
     Must be deletable
@@ -22,9 +22,9 @@ Neighborhood pages
     Details must be updatable
 
     Class must contain:
-        name
-        location
-        population
+        name (Y)
+        location(Y)
+        population (Y)
         admin foreign key
 
 Neighborhood businesses

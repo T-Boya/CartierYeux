@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 from django.template.defaultfilters import slugify
 
 # Create your models here.
@@ -13,14 +14,17 @@ class Neighborhood(models.Model):
     # posts = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
     police = models.CharField(max_length=12, default='911', blank=True)
     ambulance = models.CharField(max_length=12, default='911', blank=True)
-    slug = models.SlugField(unique=True, blank = True)
+    # slug = models.SlugField(unique=True, blank = True)
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Tag, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name)
+    #     super(Neighborhood, self).save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return redirect("view_neighborhoods", kwargs={"Neighborhood_slug" : self.slug})
+    # def get_url(self):
+    #     return redirect("show_neighborhood", kwargs={"slug" : self.slug})
+
+    def get_url(self):
+        return redirect("show_neighborhood", kwargs={"id" : self.id})
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
