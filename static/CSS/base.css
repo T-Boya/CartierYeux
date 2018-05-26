@@ -1,6 +1,6 @@
 /* NAVBAR STYLING */
 .navbar.navbar-default.navbar-fixed-top{
-    opacity: 0.7;
+    opacity: 1;
     background-color: white;
     border: 0;
     -webkit-box-shadow: none;
@@ -11,7 +11,7 @@
 /* BODY WRAPPER STYLING */
 .content {
     padding-top: 50px;
-    padding-left: 10px;
-    padding-right: 10px;
+    /* padding-left: 10px; */
+    /* padding-right: 10px; */
 }
 /* BODY WRAPPER STYLING */

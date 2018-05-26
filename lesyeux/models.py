@@ -40,5 +40,4 @@ class Business(models.Model):
 
 class Post(models.Model):
     image_post = models.ImageField(upload_to='uploaded_images', blank=True)
-    image_details = models.CharField(max_length=1000)
     text_post = models.CharField(max_length=1000)

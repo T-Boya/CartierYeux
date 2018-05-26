@@ -23,16 +23,88 @@
                   <div class="navbar-header">
                         <a class="navbar-brand"><img src=
                             "https://images.vexels.com/media/users/3/131675/isolated/preview/30a4a09f3393d32f1a8c368373902c26-owl-head-icon-by-vexels.png" 
-                                alt="calligraphy-fonts" border="0" style="height: 30px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/5793a5e7d98598b124b8f469a5e61fa4.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/1acfb13a542e51eb9f2ca45f5bd47a6b.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -5px; display: inline;"></a>
+                                alt="calligraphy-fonts" border="0" style="height: 30px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/5793a5e7d98598b124b8f469a5e61fa4.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/1acfb13a542e51eb9f2ca45f5bd47a6b.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -7px; display: inline;"></a>
+                                {% if user.is_authenticated %}
+                                <div><p>{{ user.username }}</p></div>
+                                {% endif %}
                   </div>
                   <ul class="nav navbar-nav">
-                    <li class=""><a href="">Hoods</a></li>
+                    <li class=""><a href="{% url 'neighborhoods' %}">Hoods</a></li>
+                    <li class=""><a href=""></a></li>                    
+                    {% if user.is_authenticated %}
+                    <li class=""><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li class=""><a data-toggle="modal" data-target="#SignUpIn">Sign Up</a></li>
+                    {% endif %}
                   </ul>
                 </div>
               </nav>
     <!-- NAVBAR ENDS -->
     {% endblock %}
     <div class="content">
+
+<!-- Modal -->
+<div id="SignUpIn" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="border: none;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" style="height: 50vh;">
+        <div class="SignUp" style="display: inline; float: left; width: 50%; height: 100%; border-right: solid gray 1px;">
+
+            <p>Sign Up!</p>
+            <form method="post">
+                    {% csrf_token %}
+                      {% for field in user_form %}
+                      <p>
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {% if field.help_text %}
+                          <small style="display: none">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                      </p>
+                      {% endfor %}
+                      {% for field in profile_form %}
+                      <p>
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {% if field.help_text %}
+                          <small style="display: none">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                      </p>
+                      {% endfor %}
+                      <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit">Sign up</button>
+                  </form>
+        </div>
+        <div class="SignIn" style="display: inline; float: left; width: 50%; padding-left: 10px;">
+            <p>Already A Member? Log In!</p>
+            <div class="form">
+                    <form id="login_form" method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            Username: <input type="text" name="username" value="" size="50" />
+                            <br />
+                            Password: <input type="password" name="password" value="" size="50" />
+                            <br />
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <input type="submit" value="submit" />
+                            </form>
+            </div>
+            </div>
+      </div>
+    </div>
+
+  </div>
+</div>
     {% block content %}
     {% endblock %}
     </div>

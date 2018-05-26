@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404,redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from lesyeux.forms import SignupForm, UserProfileForm, NeighborhoodForm
+from lesyeux.forms import SignupForm, UserProfileForm, NeighborhoodForm, PostForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -45,7 +45,9 @@ def signup(request):
                 email.send()
             else:
                 email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
+                next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
+            # return HttpResponse('Please confirm your email address to complete the registration')
 
     else:
         user_form = SignupForm()
@@ -76,7 +78,8 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect('nieghborhoods')
+                next = request.POST.get('next', '/')
+                return HttpResponseRedirect(next)
 
             else:
                 return HttpResponse("Your account is disabled.")
@@ -116,4 +119,64 @@ def show_neighborhood(request, id=None):
     # return render(request, 'Instagram/details.html', context = {'nieghborhood' : neighborhood,})
 
 def index(request):
-        return render(request,'home.html')
+    neighborhoods = Neighborhood.objects.all().order_by('-id')[:4]
+    if request.method == 'POST':
+        user_form = SignupForm(data = request.POST)
+        profile_form = UserProfileForm(data = request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save(commit=False)
+            user.is_active = False
+            user.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            print('1')
+
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':account_activation_token.make_token(user),
+            })
+            to_email = user_form.cleaned_data.get('email')
+            email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+            )
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+                profile.save()
+                registered = True
+                email.send()
+            else:
+                email.send()
+                next = request.POST.get('next', '/')
+                return HttpResponseRedirect(next)
+
+    else:
+        user_form = SignupForm()
+        profile_form = UserProfileForm(data = request.POST)
+        return render(request,'home.html', context = {'neighborhoods' : neighborhoods, 'user_form': user_form, 'profile_form': profile_form,})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('index')
+
+def posts(request, id=None):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            # photo = form.save(commit=False)
+            post = Post(image = request.FILES['image'])
+            post = form.save(commit=False)
+            post.author = request.user
+            post = post.save()
+            return HttpResponseRedirect(reverse('post'))
+    else:
+        form = PostForm()
+        posts = Post.objects.all().order_by('-id')
+        return render(request, 'posts.html', context = {'form':form, 'posts':posts, 'neighborhood':neighborhood})
+  

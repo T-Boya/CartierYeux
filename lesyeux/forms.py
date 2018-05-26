@@ -15,6 +15,13 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('idnumber', 'image')
 
+class PostForm(forms.ModelForm):
+    image = forms.FileField(label='Select an image file', help_text='Please select a photo to upload')
+    text_post = forms.CharField(help_text="Please enter some text.") 
+    class Meta:
+        model = Post
+        fields = ('image', 'text_post',)   
+
 class NeighborhoodForm(forms.ModelForm):
     image = forms.FileField(label='Select an image file', help_text='Please select a photo to upload')
     name = forms.CharField(help_text="Please enter the name of the neighborhood.")
