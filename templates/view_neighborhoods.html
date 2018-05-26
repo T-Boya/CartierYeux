@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-    <body>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
         {% for neighborhood in neighborhoods%}
         <img src="{{ neighborhood.image.url }}" style="height: 100px;">
         <p>Name: {{ neighborhood.name }}</p>
@@ -11,5 +8,4 @@
         <p>Population: {{ neighborhood.population }}</p>
         <a href="{% url 'show_neighborhood' id=neighborhood.id %}"><p>View More...</p></a>
         {% endfor %}
-    </body>
-</html>
+{% endblock %}

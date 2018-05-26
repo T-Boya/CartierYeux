@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-    <body>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
         <img src="{{ neighborhood.image.url }}" style="height: 100px;">
         <p>Name: {{ neighborhood.name }}</p>
         <p>Location: {{ neighborhood.location }}</p>
         <p>Population: {{ neighborhood.population }}</p>
-    </body>
-</html>
+{% endblock %}

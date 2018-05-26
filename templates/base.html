@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        {% block title %}
+        <title>CartierYeux</title>
+        {% endblock %}
+        {% block icon %}
+        <link rel="icon" href="https://images.vexels.com/media/users/3/131675/isolated/preview/30a4a09f3393d32f1a8c368373902c26-owl-head-icon-by-vexels.png">
+        {% endblock %}
+        {% block css_main %}
+        <link rel="stylesheet" type="text/css" href="{% static 'CSS/base.css' %}">
+        {% endblock %}
+        {% block stylesheet %}
+        {% endblock %}
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body>
+            {% block navbar %}
+    <!-- NAVBAR BEGINS -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                        <a class="navbar-brand"><img src=
+                            "https://images.vexels.com/media/users/3/131675/isolated/preview/30a4a09f3393d32f1a8c368373902c26-owl-head-icon-by-vexels.png" 
+                                alt="calligraphy-fonts" border="0" style="height: 30px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/5793a5e7d98598b124b8f469a5e61fa4.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/1acfb13a542e51eb9f2ca45f5bd47a6b.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -5px; display: inline;"></a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li class=""><a href="">Hoods</a></li>
+                  </ul>
+                </div>
+              </nav>
+    <!-- NAVBAR ENDS -->
+    {% endblock %}
+    <div class="content">
+    {% block content %}
+    {% endblock %}
+    </div>
+    {% load staticfiles %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </body>
+</html>

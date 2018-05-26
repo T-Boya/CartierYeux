@@ -14,9 +14,6 @@ from lesyeux.models import Neighborhood, UserProfile, Business, Post
 from django.core.mail import EmailMessage
 from django.views.decorators.http import require_POST
 
-def index(request):
-    return HttpResponse('Home sweet home')
-
 def signup(request):
     if request.method == 'POST':
         user_form = SignupForm(data = request.POST)
@@ -117,3 +114,6 @@ def show_neighborhood(request, id=None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     return render(request,'show_neighborhood.html', context = {'neighborhood' : neighborhood,})
     # return render(request, 'Instagram/details.html', context = {'nieghborhood' : neighborhood,})
+
+def index(request):
+        return render(request,'home.html')
