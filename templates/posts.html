@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
     <div>     
-        <form id="PostForm" method="post" action="/upload/" enctype="multipart/form-data">
+        <form id="PostForm" method="post" action="/view/{{ neighborhood.id }}/posts/" enctype="multipart/form-data">
 
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -14,8 +14,20 @@
                 {{ field.help_text }}
                 {{ field }}
             {% endfor %}
-
+            <input type="hidden" name="next" value="{{ request.path }}">
             <input type="submit" name="submit" value="Post" />
         </form>        
     </div>	
+    
+    <div class="posts">
+        {% for post in posts %}
+        <div class="post" style="border: 1px black solid;">
+        <p>{{ post.author.username }}</p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" style="height: 100px;">
+        {% endif %}
+        <p>{{ post.text_post }}</p>
+        </div><br>
+        {% endfor %}
+    </div>
 {% endblock %}

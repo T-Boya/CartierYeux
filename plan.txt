@@ -35,3 +35,8 @@ Neighborhood posts
 Business Search
 
 Admin Dashboard (Y)
+
+Issues:
+    Chat room is global
+    Registration doesn't associate user with Profile
+    Chat post issues

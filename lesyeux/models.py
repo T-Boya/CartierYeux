@@ -39,5 +39,7 @@ class Business(models.Model):
     additional_details = models.CharField(max_length=30)
 
 class Post(models.Model):
-    image_post = models.ImageField(upload_to='uploaded_images', blank=True)
+    image = models.ImageField(upload_to='uploaded_images', blank=True, null=True)
     text_post = models.CharField(max_length=1000)
+    author = models.ForeignKey(User)
+    neighborhood = models.ForeignKey(Neighborhood)

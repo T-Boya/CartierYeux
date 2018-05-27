@@ -166,17 +166,17 @@ def user_logout(request):
 def posts(request, id=None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     form = PostForm()
+    all_posts = Post.objects.all().order_by('-id')
+    posts = all_posts.filter(id=id)
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            # photo = form.save(commit=False)
             post = Post(image = request.FILES['image'])
             post = form.save(commit=False)
             post.author = request.user
             post = post.save()
-            return HttpResponseRedirect(reverse('post'))
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
     else:
         form = PostForm()
-        posts = Post.objects.all().order_by('-id')
-        return render(request, 'posts.html', context = {'form':form, 'posts':posts, 'neighborhood':neighborhood})
-  
+    return render(request, 'posts.html', context = {'form':form, 'posts':posts, 'neighborhood':neighborhood})

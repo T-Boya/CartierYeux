@@ -41,7 +41,11 @@
               </nav>
     <!-- NAVBAR ENDS -->
     {% endblock %}
+    {% if user.is_authenticated %}
+    <div class="content" style="padding-top: 80px;">
+    {% else %}
     <div class="content">
+    {% endif %}
 
 <!-- Modal -->
 <div id="SignUpIn" class="modal fade" role="dialog">
