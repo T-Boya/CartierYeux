@@ -26,6 +26,11 @@ class Neighborhood(models.Model):
     def get_url(self):
         return redirect("show_neighborhood", kwargs={"id" : self.id})
 
+    @classmethod
+    def search(cls, query):
+        neighborhood = cls.objects.filter(name__icontains=query)
+        return neighborhood
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     image = models.ImageField(upload_to='user_dps', blank=True)
@@ -38,6 +43,11 @@ class Business(models.Model):
     location = models.CharField(max_length=30, default='Unknown')
     additional_details = models.CharField(max_length=30, blank=True)
     neighborhood = models.ForeignKey(Neighborhood)
+
+    @classmethod
+    def search(cls, query):
+        business = cls.objects.filter(name__icontains=query)
+        return business
 
 class Post(models.Model):
     image = models.ImageField(upload_to='uploaded_images', blank=True, null=True)

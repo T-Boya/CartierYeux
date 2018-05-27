@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from lesyeux.models import Neighborhood, UserProfile, Business, Post
 from django.core.mail import EmailMessage
 from django.views.decorators.http import require_POST
+from itertools import chain
 
 def signup(request):
     if request.method == 'POST':
@@ -200,3 +201,18 @@ def posts(request, id=None):
     else:
         form = PostForm()
     return render(request, 'posts.html', context = {'form':form, 'posts':posts, 'neighborhood':neighborhood,})
+
+def search(request):
+    if 'contains' in request.GET and request.GET["contains"]:
+            query = request.GET.get("contains")
+            businesses = Business.search(query)
+            neighborhoods = Neighborhood.search(query)
+            results = list(chain(neighborhoods, businesses))
+            output = f"{query}"
+
+            return render(request,'search.html',{"output":output, "results":results})
+
+    else:
+        message = "You haven't searched for anything"
+        return render(request, 'search.html',{"message":message})
+    return render(request, 'search.html',)

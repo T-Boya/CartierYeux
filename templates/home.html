@@ -5,6 +5,8 @@
         <div class="container" style="height: 400px; overflow: hidden; padding: 0px;">
             <img src="{% static 'IMG/jumbotron.jpg' %}" border="0" style="width: 100vw;">
         </div>
+        <form class="navbar-form" role="search" action="{% url 'search' %}">
+                <div class="input-group"><input class="inputbox" type="text" placeholder="Search" name="contains"><button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button></div></form>
     </div>
     <div class="context" style="padding-left: 20px; padding-right: 20px;">
         <div class="synopsis" style="width: 50vw; float: left; display: inline;">
@@ -14,13 +16,13 @@
         <div class="join" style="float: right; width: 40vw; display: inline; border: 5px black solid; border-radius: 10px; padding: 10px;">
             <h1>Join our community</h1>
             <h4>To get started, create a free account. It only takes 5 minutes!</h4><br>
-            <a href="{% url 'signup' %}"><h5 style="margin-top:-10px;">Join now!</h6></a>
+            <a data-toggle="modal" data-target="#SignUpIn"><h5 style="margin-top:-10px;">Join now!</h6></a>
         </div>
     </div>
     <div class="popular" style="margin-top: 350px;">
         <div class="jumbotron jumbotron-fluid" style="padding: 0px; padding-left: 2vw;">
                 <div class="container" style="height: 200px; overflow: hidden; padding: 0px;">
-                   <h4>Recently Created Neighborhoods</h4>
+                   <h4>Recently Added Neighborhoods</h4>
                    <a href="{% url 'neighborhoods' %}"><h6 style="display: inline; float: right;">See all</h6></a>
                    {% for neighborhood in neighborhoods%}
                    <div class="container" style="float: left; width: 20vw; margin-right: 2vw;">

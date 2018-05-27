@@ -33,7 +33,7 @@ Neighborhood businesses (Y)
 Neighborhood posts
     posts can be pictures or text (Y)
 
-Business Search
+Business Search (Y)
 
 Admin Dashboard (Y)
 

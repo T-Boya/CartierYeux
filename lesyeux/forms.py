@@ -45,3 +45,4 @@ class BusinessForm(forms.ModelForm):
         model = Business
         fields = ('name', 'image', 'location', 'additional_details',)
         exclude = ('neighborhood',)
+

@@ -5,6 +5,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),   
     url(r'^login/', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^search/', views.search, name="search"),
     url(r'^view/$', views.neighborhoods, name='neighborhoods'),
     url(r'^view/business/(?P<id>\d+)/$', views.view_business, name='view_business'),    
     url(r'^view/(?P<id>\d+)/$', views.show_neighborhood, name='show_neighborhood'),   
