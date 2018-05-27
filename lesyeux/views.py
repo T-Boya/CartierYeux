@@ -216,3 +216,23 @@ def search(request):
         message = "You haven't searched for anything"
         return render(request, 'search.html',{"message":message})
     return render(request, 'search.html',)
+
+def edit_neighborhood(request, id = None):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    n_id = neighborhood.id
+    if request.method == 'POST':
+        neighborhood.name = request.POST.get('name')
+        neighborhood.location = request.POST.get('location')
+        neighborhood.population = request.POST.get('population')
+        neighborhood.police = request.POST.get('police')
+        neighborhood.ambulance = request.POST.get('ambulance')
+        if request.FILES == True:
+            neighborhood.image = request.FILES.get('image')
+            update_neighborhood = neighborhood.save()
+            return redirect('show_neighborhood', id=n_id)
+        else:
+            update_neighborhood = neighborhood.save() 
+            return redirect('show_neighborhood', id=n_id)
+    else:
+        return render(request, 'edit_neighborhood.html', {'neighborhood':neighborhood, 'n_id' : n_id,})
+    return render(request, 'edit_neighborhood.html', {'neighborhood':neighborhood, 'n_id' : n_id,})

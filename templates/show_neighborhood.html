@@ -14,7 +14,7 @@
 
             </div>
 
-            <p style="float: left; margin-left: 100px; font-size: 50px; font-style: italic;">{{ neighborhood.name }}</p>
+            <p style="float: left; margin-left: 100px; font-size: 50px; font-style: italic;">{{ neighborhood.name }}</p><a href="{% url 'edit_neighborhood' id=neighborhood.id %}"><p>Edit</p></a>
         </div>
 
         <div class = "decription" style="display: block; padding-left: 350px; margin-top: -150px;">

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+            <div class="form">
+                    <form id="login_form" method="post" action="{% url 'edit_neighborhood' id=n_id %}">
+                            {% csrf_token %}
+                            {% if neighborhood.image %}
+                            Image: <input type="file" name="image" value="{{ neighborhood.image }}" size="50" />
+                            <br />
+                            {% else %}
+                            Image: <input type="file" name="image" value="" size="50" />
+                            <br />
+                            {% endif %}
+                            Name: <input type="text" name="name" value="{{ neighborhood.name }}" size="50" />
+                            <br /> <p>30 character maximum</p>
+                            Location: <input type="text" name="location" value="{{ neighborhood.location }}" size="50" /> <p>100 character maximum</p>
+                            <br />
+                            Population: <input type="text" name="population" value="{{ neighborhood.population }}" size="50" />
+                            <br />
+                            Police: <input type="text" name="police" value="{{ neighborhood.police }}" size="50" /> <p>12 character maximum</p>
+                            <br />
+                            Ambulance: <input type="text" name="ambulance" value="{{ neighborhood.ambulance }}" size="50" /><p>12 character maximum</p>
+                            <br />
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <input type="submit" value="submit" />
+                            </form>
+            </div>
+{% endblock %}
