@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404,redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from lesyeux.forms import SignupForm, UserProfileForm, NeighborhoodForm, PostForm
+from lesyeux.forms import SignupForm, UserProfileForm, NeighborhoodForm, PostForm, BusinessForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -115,8 +115,21 @@ def neighborhoods(request):
 @login_required
 def show_neighborhood(request, id=None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
-    return render(request,'show_neighborhood.html', context = {'neighborhood' : neighborhood,})
-    # return render(request, 'Instagram/details.html', context = {'nieghborhood' : neighborhood,})
+    businesses = Business.objects.all()
+    # businesses = all_businesses.filter(neighborhood_id=id)
+    form = BusinessForm()
+    if request.method == 'POST':
+        form = BusinessForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = Business(image = request.FILES.get('image'))
+            business = form.save(commit=False)
+            business.neighborhood = neighborhood
+            business = business.save()
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
+    else:
+        form = BusinessForm()
+    return render(request,'show_neighborhood.html', context = {'form' : form, 'neighborhood' : neighborhood, 'businesses':businesses})
 
 def index(request):
     neighborhoods = Neighborhood.objects.all().order_by('-id')[:4]
@@ -167,16 +180,17 @@ def posts(request, id=None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     form = PostForm()
     all_posts = Post.objects.all().order_by('-id')
-    posts = all_posts.filter(id=id)
+    posts = all_posts.filter(neighborhood_id=id)
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = Post(image = request.FILES['image'])
+            post = Post(image = request.FILES.get('image'))
             post = form.save(commit=False)
             post.author = request.user
+            post.neighborhood = neighborhood
             post = post.save()
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
     else:
         form = PostForm()
-    return render(request, 'posts.html', context = {'form':form, 'posts':posts, 'neighborhood':neighborhood})
+    return render(request, 'posts.html', context = {'form':form, 'posts':posts, 'neighborhood':neighborhood,})

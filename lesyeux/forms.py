@@ -34,3 +34,14 @@ class NeighborhoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
         fields = ('image', 'name', 'location', 'population', 'police', 'ambulance')
+
+class BusinessForm(forms.ModelForm):
+    name = forms.CharField(help_text="Please enter the name of the business.")
+    image = forms.FileField(required=False, label='Select an image file', help_text='Please select a photo to upload')
+    location = forms.CharField(help_text="Please enter the location of the business.")
+    additional_details = forms.CharField(required=False, help_text="Enter any additional details.")
+
+    class Meta:
+        model = Business
+        fields = ('name', 'image', 'location', 'additional_details',)
+        exclude = ('neighborhood',)

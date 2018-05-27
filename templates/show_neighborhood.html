@@ -23,6 +23,38 @@
             </div>
             <a href="{% url 'posts' id=neighborhood.id %}"><h3>Chat Room</h3></a>
         </div>
+        <div class="businesses" style="display: inline-block; float: right; margin-top: -350px; margin-right: 100px; max-width: 250px;">
+            <h1>Businesses:</h1>
+            <div id = "list">
+            <!-- {% if neighborhood.business %} -->
+
+            {% for business in businesses %}
+            <p>{{ business.name }}</p>
+            {% endfor %}
+
+            <!-- {% else %} -->
+            <!-- <h3>No Businesses Have Been Added</h3> -->
+            <!-- {% endif %} -->
+            <a class="showform"><h5>Add A Business</h5></a>
+        </div>
+            <div id="addbusiness" style="display: none;">
+                    <form id="BusinessForm" method="post" action="/view/{{ neighborhood.id }}/" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+            
+                        {% for field in form.visible_fields %}
+                            {{ field.errors }}
+                            {{ field.help_text }}
+                            {{ field }}
+                        {% endfor %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <input type="submit" name="submit" value="Add Business" />
+                    </form>    
+            </div>
+        </div>
 </div>
 </div>
 {% endblock %}

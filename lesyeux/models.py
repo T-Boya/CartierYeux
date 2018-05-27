@@ -30,13 +30,14 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     image = models.ImageField(upload_to='user_dps', blank=True)
     idnumber = models.CharField(max_length=10,)
-    Neighborhood = models.ForeignKey(Neighborhood, blank = True)
+    neighborhood = models.ForeignKey(Neighborhood, blank = True)
 
 class Business(models.Model):
     name = models.CharField(max_length=30, default='Unknown')
     image = models.ImageField(upload_to='business_images', blank=True)
     location = models.CharField(max_length=30, default='Unknown')
-    additional_details = models.CharField(max_length=30)
+    additional_details = models.CharField(max_length=30, blank=True)
+    neighborhood = models.ForeignKey(Neighborhood)
 
 class Post(models.Model):
     image = models.ImageField(upload_to='uploaded_images', blank=True, null=True)

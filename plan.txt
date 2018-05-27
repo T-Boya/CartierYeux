@@ -1,6 +1,7 @@
 Requirements
 (y) = done
 (n) = not done
+(f) = fixed
 
 Users
     login must have email confirmation (Y)
@@ -30,13 +31,13 @@ Neighborhood pages
 Neighborhood businesses
 
 Neighborhood posts
-    posts can be pictures or text
+    posts can be pictures or text (Y)
 
 Business Search
 
 Admin Dashboard (Y)
 
 Issues:
-    Chat room is global
+    Chat room is global (f)
     Registration doesn't associate user with Profile
-    Chat post issues
+    Chat post issues (f)
