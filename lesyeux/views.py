@@ -45,6 +45,7 @@ def signup(request):
                 registered = True
                 email.send()
             else:
+                profile.save()
                 email.send()
                 next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
@@ -236,3 +237,8 @@ def edit_neighborhood(request, id = None):
     else:
         return render(request, 'edit_neighborhood.html', {'neighborhood':neighborhood, 'n_id' : n_id,})
     return render(request, 'edit_neighborhood.html', {'neighborhood':neighborhood, 'n_id' : n_id,})
+
+def delete_neighborhood(request, id = None):
+    neighborhood = get_object_or_404(Neighborhood, id=id)
+    neighborhood.delete_neighborhood()
+    return redirect('neighborhoods')

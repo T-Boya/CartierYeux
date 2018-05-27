@@ -26,6 +26,9 @@ class Neighborhood(models.Model):
     def get_url(self):
         return redirect("show_neighborhood", kwargs={"id" : self.id})
 
+    def delete_neighborhood(self):
+        self.delete()
+
     @classmethod
     def search(cls, query):
         neighborhood = cls.objects.filter(name__icontains=query)
