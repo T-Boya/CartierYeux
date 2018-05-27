@@ -115,9 +115,10 @@ def neighborhoods(request):
 @login_required
 def show_neighborhood(request, id=None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
-    businesses = Business.objects.all()
-    # businesses = all_businesses.filter(neighborhood_id=id)
     form = BusinessForm()
+    all_businesses = Business.objects.all()
+    businesses = all_businesses.filter(neighborhood_id=id)
+    print(businesses)
     if request.method == 'POST':
         form = BusinessForm(request.POST, request.FILES)
         if form.is_valid():
@@ -130,6 +131,11 @@ def show_neighborhood(request, id=None):
     else:
         form = BusinessForm()
     return render(request,'show_neighborhood.html', context = {'form' : form, 'neighborhood' : neighborhood, 'businesses':businesses})
+
+@login_required
+def view_business(request, id=None):
+    business = get_object_or_404(Business, id=id)
+    return render(request,'view_business.html', context = {'business':business})
 
 def index(request):
     neighborhoods = Neighborhood.objects.all().order_by('-id')[:4]

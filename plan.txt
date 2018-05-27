@@ -28,7 +28,7 @@ Neighborhood pages
         population (Y)
         admin foreign key
 
-Neighborhood businesses
+Neighborhood businesses (Y)
 
 Neighborhood posts
     posts can be pictures or text (Y)

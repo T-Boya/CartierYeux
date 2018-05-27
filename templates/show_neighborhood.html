@@ -6,7 +6,11 @@
         <div class = "header" style="height: 250px; width: 100vw;">
             <div class = "photo" style="width: 200px; height: 200px; -moz-border-radius: 100px; -webkit-border-radius: 100px; border-radius: 100px; border: 1px solid black; overflow: hidden; float: left;">
 
-                <img src="{{ neighborhood.image.url }}" style="width: 150%; display: block; margin: 0 auto;">
+                    {% if neighborhood.image %}
+                    <img src="{{ neighborhood.image.url }}" style="width: 150%; display: block;margin: 0 auto;">
+                    {% else %}
+                    <img src="{% static 'IMG/no_image.svg' %}" style="width: 100%; display: block;margin: 0 auto;">
+                    {% endif %}
 
             </div>
 
@@ -26,15 +30,13 @@
         <div class="businesses" style="display: inline-block; float: right; margin-top: -350px; margin-right: 100px; max-width: 250px;">
             <h1>Businesses:</h1>
             <div id = "list">
-            <!-- {% if neighborhood.business %} -->
-
+            {% if businesses %}
             {% for business in businesses %}
-            <p>{{ business.name }}</p>
+            <a href="{% url 'view_business' id=business.id %}"><p>{{ business.name }}</p></a>
             {% endfor %}
-
-            <!-- {% else %} -->
-            <!-- <h3>No Businesses Have Been Added</h3> -->
-            <!-- {% endif %} -->
+            {% else %}
+            <h3>No Businesses Have Been Added</h3>
+            {% endif %}
             <a class="showform"><h5>Add A Business</h5></a>
         </div>
             <div id="addbusiness" style="display: none;">
