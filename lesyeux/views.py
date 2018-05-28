@@ -184,6 +184,7 @@ def user_logout(request):
     logout(request)
     return redirect('index')
 
+@login_required
 def posts(request, id=None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     form = PostForm()
@@ -218,6 +219,7 @@ def search(request):
         return render(request, 'search.html',{"message":message})
     return render(request, 'search.html',)
 
+@login_required
 def edit_neighborhood(request, id = None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     n_id = neighborhood.id
@@ -238,11 +240,13 @@ def edit_neighborhood(request, id = None):
         return render(request, 'edit_neighborhood.html', {'neighborhood':neighborhood, 'n_id' : n_id,})
     return render(request, 'edit_neighborhood.html', {'neighborhood':neighborhood, 'n_id' : n_id,})
 
+@login_required
 def delete_neighborhood(request, id = None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     neighborhood.delete_neighborhood()
     return redirect('neighborhoods')
 
+@login_required
 def view_user(request, id = None):
     user = get_object_or_404(User, id=id)
     return render(request, 'view_user.html', {'user':user})
