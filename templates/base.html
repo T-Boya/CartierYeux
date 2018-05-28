@@ -56,7 +56,7 @@
       <div class="modal-header" style="border: none;">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <div class="modal-body" style="height: 50vh;">
+      <div class="modal-body" style="height: 85vh;">
         <div class="SignUp" style="display: inline; float: left; width: 50%; height: 100%; border-right: solid gray 1px;">
 
             <p>Sign Up!</p>
@@ -65,7 +65,9 @@
                       {% for field in user_form %}
                       <p>
                         {{ field.label_tag }}<br>
+                        <div class="ff">
                         {{ field }}
+                        </div>
                         {% if field.help_text %}
                           <small style="display: none">{{ field.help_text }}</small>
                         {% endif %}
@@ -87,7 +89,7 @@
                       </p>
                       {% endfor %}
                       <input type="hidden" name="next" value="{{ request.path }}">
-                    <button type="submit">Sign up</button>
+                    <button type="submit"  style="border: solid 2px black; border-radius: 10px; margin-top: 5px;">Sign up</button>
                   </form>
         </div>
         <div class="SignIn" style="display: inline; float: left; width: 50%; padding-left: 10px;">
@@ -95,12 +97,12 @@
             <div class="form">
                     <form id="login_form" method="post" action="{% url 'login' %}">
                             {% csrf_token %}
-                            Username: <input type="text" name="username" value="" size="50" />
+                            <p style="font-weight: bold;">Username:</p><input type="text" name="username" value="" size="50" style="width: 20vw; padding-left: 20px;"/>
                             <br />
-                            Password: <input type="password" name="password" value="" size="50" />
+                            <p style="font-weight: bold;">Password:</p><input type="password" name="password" value="" size="50" style="width: 20vw; padding-left: 20px;"/>
                             <br />
                             <input type="hidden" name="next" value="{{ request.path }}">
-                            <input type="submit" value="submit" />
+                            <input type="submit" value="submit" style="border: solid 2px black; border-radius: 10px; margin-top: 5px;"/>
                             </form>
             </div>
             </div>
