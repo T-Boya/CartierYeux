@@ -7,7 +7,7 @@ Users
     login must have email confirmation (Y)
 
 User Profile
-    Must contain name, general location and neighborhood
+    Must contain name, general location and neighborhood (Y)
     Class must contain:
         name (Y)
         id(Y)
@@ -39,5 +39,5 @@ Admin Dashboard (Y)
 
 Issues:
     Chat room is global (f)
-    Registration doesn't associate user with Profile DO THIS--------------
+    Registration doesn't associate user with Profile DO THIS-------------- (Y)
     Chat post issues (f)
