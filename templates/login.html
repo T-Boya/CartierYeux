@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-<div class="form" style="text-align: center; margin-top: 10vh;">
+<div class="form" style="text-align: center; margin-top: 10vh; width: 30vw; margin: 0 auto;">
         <h1>Please log in to continue</h1>
         <form id="login_form" method="post" action="{% url 'login' %}">
                 {% csrf_token %}
