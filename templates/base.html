@@ -25,7 +25,7 @@
                             "https://images.vexels.com/media/users/3/131675/isolated/preview/30a4a09f3393d32f1a8c368373902c26-owl-head-icon-by-vexels.png" 
                                 alt="calligraphy-fonts" border="0" style="height: 30px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/5793a5e7d98598b124b8f469a5e61fa4.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -5px; display: inline;"><img src="https://fontmeme.com/permalink/180526/1acfb13a542e51eb9f2ca45f5bd47a6b.png" alt="calligraphy-fonts" border="0" style="width: 50px; margin-top: -7px; display: inline;"></a>
                                 {% if user.is_authenticated %}
-                                <div><p>{{ user.username }}</p></div>
+                                <div><a href="{% url 'view_user' id=user.id %}"><p>{{ user.username }}</p></a></div>
                                 {% endif %}
                   </div>
                   <ul class="nav navbar-nav">

@@ -242,3 +242,7 @@ def delete_neighborhood(request, id = None):
     neighborhood = get_object_or_404(Neighborhood, id=id)
     neighborhood.delete_neighborhood()
     return redirect('neighborhoods')
+
+def view_user(request, id = None):
+    user = get_object_or_404(User, id=id)
+    return render(request, 'view_user.html', {'user':user})
