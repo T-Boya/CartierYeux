@@ -37,7 +37,7 @@
                                 Ambulance: <input type="text" name="ambulance" value="{{ neighborhood.ambulance }}" size="50" /><p>12 character maximum</p>
                                 <br />
                                 <input type="hidden" name="next" value="{{ request.path }}">
-                                <input type="submit" value="save" style="border: solid 2px black; border-radius: 10px; margin-top: 5px;"/>
+                                <input type="submit" value="save" style="border: solid 2px black; border-radius: 10px; margin-top: 5px;" />
                                 </form>
                 </div>
                 <a href="{% url 'delete_neighborhood' id=neighborhood.id%}"><p>Delete</p></a>
