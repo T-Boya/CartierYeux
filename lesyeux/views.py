@@ -44,11 +44,13 @@ def signup(request):
                 profile.save()
                 registered = True
                 email.send()
+                return HttpResponse('Please confirm your email to login.')
+                
             else:
                 profile.save()
                 email.send()
                 # next = request.POST.get('next', '/')
-            return redirect('index')
+                return HttpResponse('Please confirm your email to login.')              
             # return HttpResponse('Please confirm your email address to complete the registration')
 
     else:
