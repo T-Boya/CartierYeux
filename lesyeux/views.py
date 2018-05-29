@@ -169,6 +169,8 @@ def index(request):
         user_form = SignupForm()
         profile_form = UserProfileForm(data = request.POST)
         return render(request,'home.html', context = {'neighborhoods' : neighborhoods, 'user_form': user_form, 'profile_form': profile_form,})
+    return render(request,'home.html', context = {'neighborhoods' : neighborhoods, 'user_form': user_form, 'profile_form': profile_form,})
+
 
 @login_required
 def user_logout(request):
