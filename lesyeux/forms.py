@@ -13,7 +13,8 @@ class SignupForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('idnumber', 'image')
+        fields = ('idnumber',)
+        exclude = ('user',)
 
 class PostForm(forms.ModelForm):
     image = forms.FileField(required=False, label='Select an image file', help_text='Please select a photo to upload')

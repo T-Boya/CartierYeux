@@ -36,7 +36,6 @@ class Neighborhood(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    image = models.ImageField(upload_to='user_dps', blank=True, null=True)
     idnumber = models.CharField(max_length=10,)
     neighborhood = models.ForeignKey(Neighborhood, blank = True, null=True)
 

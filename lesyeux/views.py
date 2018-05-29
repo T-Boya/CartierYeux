@@ -39,18 +39,11 @@ def signup(request):
             email = EmailMessage(
                         mail_subject, message, to=[to_email]
             )
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-                profile.save()
-                registered = True
-                email.send()
-                return HttpResponse('Please confirm your email to login.')
-                
-            else:
-                profile.save()
-                email.send()
-                # next = request.POST.get('next', '/')
-                return HttpResponse('Please confirm your email to login.')              
+            profile.save()
+            registered = True
+            email.send()
+            # next = request.POST.get('next', '/')
+            return HttpResponse('Please confirm your email to login.')              
             # return HttpResponse('Please confirm your email address to complete the registration')
 
     else:
@@ -168,16 +161,8 @@ def index(request):
             email = EmailMessage(
                         mail_subject, message, to=[to_email]
             )
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-                profile.save()
-                registered = True
-                email.send()
-                return HttpResponse('Please confirm your email to login.')
-                
-            else:
-                email.send()
-                return HttpResponse('Please confirm your email to login.')
+            email.send()
+            return HttpResponse('Please confirm your email to login.')
 
 
     else:
