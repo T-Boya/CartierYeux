@@ -47,8 +47,8 @@ def signup(request):
             else:
                 profile.save()
                 email.send()
-                next = request.POST.get('next', '/')
-            return HttpResponseRedirect(next)
+                # next = request.POST.get('next', '/')
+            return redirect('index')
             # return HttpResponse('Please confirm your email address to complete the registration')
 
     else:
@@ -65,9 +65,11 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
-        # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        username=user.username
+        password=user.password
+        user = authenticate(username=username, password=password)
+        # return redirect('index')
+        return render(request, 'activated.html')
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -169,10 +171,12 @@ def index(request):
                 profile.save()
                 registered = True
                 email.send()
+                return HttpResponse('Please confirm your email to login.')
+                
             else:
                 email.send()
-                next = request.POST.get('next', '/')
-                return HttpResponseRedirect(next)
+                return HttpResponse('Please confirm your email to login.')
+
 
     else:
         user_form = SignupForm()
