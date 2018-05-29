@@ -29,6 +29,7 @@ def signup(request):
 
             current_site = get_current_site(request)
             mail_subject = 'Activate your blog account.'
+            subject = 'Activate Your Account'
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -41,7 +42,7 @@ def signup(request):
             )
             profile.save()
             registered = True
-            email.send()
+            user.email_user(subject, message)
             # next = request.POST.get('next', '/')
             return HttpResponse('Please confirm your email to login.')              
             # return HttpResponse('Please confirm your email address to complete the registration')
